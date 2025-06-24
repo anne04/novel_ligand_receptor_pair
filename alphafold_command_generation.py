@@ -30,6 +30,16 @@ def print_command(lrp_list, dict_gene_seq, prefix, path_to, AF_output_dir):
         print('rm -r '+ AF_output_dir + prefix + ligand+'_'+receptor)
 
 if __name__ == "__main__":
+
+    save_json_to = '/cluster/projects/schwartzgroup/fatema/LRbind/alphafold_input/'
+    prefix = 'lrbind_'
+    lr_list_file = '/cluster/home/t116508uhn/LRbind_output/without_elbow_cut/LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_prefiltered/model_LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_lr_list_sortedBy_totalScore_top_elbow_allLR.csv'
+    #model_LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_novel_lr_list_sortedBy_totalScore_top_elbow_novelsOutOfallLR.csv'
+    AF_output_dir = 'ParallelFold-main/output/'
+    from_pair = 0
+    to_pair = 30
+    filter ='db_only' 
+    marker = '+'
     import argparse
     parser = argparse.ArgumentParser()
     # ================ Specify data type firstly ===============
@@ -47,19 +57,16 @@ if __name__ == "__main__":
         
     ##############################################################################
 
-    save_json_to = '/cluster/projects/schwartzgroup/fatema/LRbind/alphafold_input/'
-    prefix = 'lrbind_'
-    lr_list_file = '/cluster/home/t116508uhn/LRbind_output/without_elbow_cut/LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_prefiltered/model_LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_novel_lr_list_sortedBy_totalScore_top_elbow_novelsOutOfallLR.csv'
-    AF_output_dir = 'ParallelFold-main/output/'
-    from_pair = 0
-    to_pair = min(30, len( df["Ligand-Receptor Pairs"]))
+
     probable_pairs = []
-    
     df = pd.read_csv(lr_list_file, sep=",")
-    
+    to_pair = min(to_pair, len( df["Ligand-Receptor Pairs"]))
     for i in range (from_pair, to_pair):
-        ligand = df["Ligand-Receptor Pairs"][i].split('+')[0]
-        receptor = df["Ligand-Receptor Pairs"][i].split('+')[1]       
+        if filter == 'db_only' and df["Type"][i]!='From DB':
+            continue
+            
+        ligand = df["Ligand-Receptor Pairs"][i].split(marker)[0]
+        receptor = df["Ligand-Receptor Pairs"][i].split(marker)[1]       
         probable_pairs.append([ligand, receptor])
 
     

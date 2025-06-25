@@ -12,11 +12,11 @@ if __name__ == "__main__":
     prefix = 'lrbind_'
     lr_list_file = '/cluster/home/t116508uhn/LRbind_output/without_elbow_cut/LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_prefiltered/model_LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_lr_list_sortedBy_totalScore_top_elbow_allLR.csv'
     #model_LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_novel_lr_list_sortedBy_totalScore_top_elbow_novelsOutOfallLR.csv'
-    AF_output_dir = 'ParallelFold-main/output/'
+    from_dir = 'ParallelFold-main/output/'
     from_pair = 0
     to_pair = 30
     filter = 'all' #'db_only' 
-    marker = '+'
+    marker = '_to_'
     import argparse
     parser = argparse.ArgumentParser()
     # ================ Specify data type firstly ===============
@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     
     ### see which of those are not calculated yet #############
-    file_list = glob.glob(AF_output_dir+"*json")
+    file_list = glob.glob(from_dir+"*json")
     calculated_pairs = dict()
     for file_path in file_list:
         ligand = file_path.split('_')[1]
@@ -63,10 +63,8 @@ if __name__ == "__main__":
     output_path = '/cluster/home/t116508uhn/LRbind_output/'
     plot_title = 'AlphaFold score distribution for predicted LRP lymph' #random  
     file_name = 'AF_score_distribution_predictedLRP_lymph_' #'AF_score_distribution_randomLRP_' #'AF_score_distribution_selfbindLRP_' #'AF_score_distribution_manualLRP_' # 'AF_score_distribution_falseLRP_' #
-    lr_type =  'lrbind' #'random' #'false' # #manual
     lrpair_score_dict = defaultdict(list)
     score_list = []
-    file_list = glob.glob("ParallelFold-main/output/"+ lr_type +"*json")
     for file_path in file_list:
         with open(file_path, 'r') as file:
             data = json.load(file)

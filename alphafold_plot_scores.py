@@ -10,7 +10,8 @@ if __name__ == "__main__":
 
     save_json_to = '/cluster/projects/schwartzgroup/fatema/LRbind/alphafold_input/'
     prefix = 'lrbind_'
-    lr_list_file = '/cluster/home/t116508uhn/LRbind_output/without_elbow_cut/LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_prefiltered/model_LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_lr_list_sortedBy_totalScore_top_elbow_allLR.csv'
+    lr_list_file = '/cluster/home/t116508uhn/LRbind_output/without_elbow_cut/LRbind_LUAD_1D_manualDB_geneLocalCorrKNN_bidir_prefiltered/model_LRbind_LUAD_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_lr_list_sortedBy_totalScore_top_elbow_allLR.csv'
+    #model_LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_lr_list_sortedBy_totalScore_top_elbow_allLR.csv'
     #model_LRbind_V1_Human_Lymph_Node_spatial_1D_manualDB_geneLocalCorrKNN_bidir_3L_prefiltered_down_up_deg_novel_lr_list_sortedBy_totalScore_top_elbow_novelsOutOfallLR.csv'
     from_dir = 'ParallelFold-main/output/'
     from_pair = 0
@@ -61,8 +62,8 @@ if __name__ == "__main__":
     print('Going to plot AF on %d pairs'%len(lrp_list_to_run))
     
     output_path = '/cluster/home/t116508uhn/LRbind_output/'
-    plot_title = 'AlphaFold score distribution for predicted LRP lymph' #random  
-    file_name = 'AF_score_distribution_predictedLRP_lymph_' #'AF_score_distribution_randomLRP_' #'AF_score_distribution_selfbindLRP_' #'AF_score_distribution_manualLRP_' # 'AF_score_distribution_falseLRP_' #
+    plot_title = 'AlphaFold score distribution for predicted LRP luad' #random  
+    file_name = 'AF_score_distribution_predictedLRP_luad_' #'AF_score_distribution_randomLRP_' #'AF_score_distribution_selfbindLRP_' #'AF_score_distribution_manualLRP_' # 'AF_score_distribution_falseLRP_' #
     lrpair_score_dict = defaultdict(list)
     score_list = []
     for file_path in file_list:

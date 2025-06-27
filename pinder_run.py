@@ -27,3 +27,7 @@ hits['apo_L_pdb']
 
 hits_L["predicted_L_pdb"]
 hits_R["predicted_R_pdb"]
+
+from pinder.scoring import score_holo
+result = score_holo("unrelaxed_model_1_multimer_v3_pred_0.pdb")
+print(result)

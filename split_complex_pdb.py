@@ -7,7 +7,9 @@ class ChainSelect(Select):
         return chain.id == self.chain_id
 
 # Load the unrelaxed complex
-pdb_path = "/cluster/projects/schwartzgroup/fatema/LRbind/ParallelFold-main/output/old_lrbind/lrbind_CDH1_ITGB6/unrelaxed_model_1_multimer_v3_pred_0.pdb"
+ligand_name = 'TGFB2' #'RETN'  #'CDH1'
+rec_name = 'TGFBR2' #'CD44' #'ITGB6'
+pdb_path =  'TGFB2_TGFBR2_unrelaxed_model_1_multimer_v3_pred_0.pdb' #"RETN_CD44_unrelaxed_model_1_multimer_v3_pred_0.pdb" #"/cluster/projects/schwartzgroup/fatema/LRbind/ParallelFold-main/output/old_lrbind/lrbind_CDH1_ITGB6/unrelaxed_model_1_multimer_v3_pred_0.pdb"
 parser = PDBParser(QUIET=True)
 structure = parser.get_structure("complex", pdb_path)
 
@@ -21,7 +23,7 @@ for model in structure:
 # Save chain A (example: ligand)
 io = PDBIO()
 io.set_structure(structure)
-io.save("CDH1_holo.pdb", select=ChainSelect("B"))
+io.save(ligand_name+"_holo.pdb", select=ChainSelect("B"))
 
 # Save chain B (example: receptor)
-io.save("ITGB6_holo.pdb", select=ChainSelect("C"))
+io.save(rec_name+"_holo.pdb", select=ChainSelect("C"))
